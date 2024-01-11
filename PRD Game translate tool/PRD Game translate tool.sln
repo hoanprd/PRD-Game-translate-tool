@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33801.447
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRD Game translate tool", "PRD Game translate tool.csproj", "{481AB6A8-E055-4E06-A270-545361533282}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{481AB6A8-E055-4E06-A270-545361533282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481AB6A8-E055-4E06-A270-545361533282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481AB6A8-E055-4E06-A270-545361533282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481AB6A8-E055-4E06-A270-545361533282}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3357D811-BECE-4485-88A8-3BC46A0F1700}
+	EndGlobalSection
+EndGlobal
