@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -24,11 +25,15 @@ namespace PRD_Game_translate_tool
 {
     public partial class frmTranslate : Form
     {
-        static string[] langarr = { "Vietnamese", "Arabic", "Bulgarian", "Chinese(Simplified)", "Chinese(Traditional)", "Croatian", "Czech", "Danish", "Dutch", "English", "Finnish", "French", "German", "Greek", "Hungarian", "Korean", "Italian", "Japanese", "Polish", "Portuguese", "Russian", "Slovenian", "Spanish", "Swedish", "Turkish" };
-        static string[] langarrmini = { "vie", "ara", "bul", "chs", "cht", "hrv", "cze", "dan", "dut", "eng", "fin", "fre", "ger", "gre", "hun", "kor", "ita", "jpn", "pol", "por", "rus", "slv", "spa", "swe", "tur" };
-        //string pathTemp = null;
-        string langOCR, langInput, langOutput;
-        bool auto;
+        public static string[] langArr = { "Vietnamese", "Arabic", "Bulgarian", "Chinese(Simplified)", "Chinese(Traditional)", "Croatian", "Czech", "Danish", "Dutch", "English", "Finnish", "French", "German", "Greek", "Hungarian", "Korean", "Italian", "Japanese", "Polish", "Portuguese", "Russian", "Slovenian", "Spanish", "Swedish", "Turkish" };
+        public static string[] langArrMini = { "vie", "ara", "bul", "chs", "cht", "hrv", "cze", "dan", "dut", "eng", "fin", "fre", "ger", "gre", "hun", "kor", "ita", "jpn", "pol", "por", "rus", "slv", "spa", "swe", "tur" };
+        public static string[] langTranslateArr = { "vi", "en", "ja" };
+        public static string langInputSetting, langOutputSetting;
+        public static int langInputOCR, langInputGG, langOutput;
+        public static string langInOCR, langInGG, langOut;
+        private string duongdanDoc, settingPath1, settingPath2;
+        bool auto, shrink;
+        int autoCount;
 
         public frmTranslate()
         {
@@ -39,7 +44,7 @@ namespace PRD_Game_translate_tool
         {
             string url = String.Format
             ("https://translate.googleapis.com/translate_a/single?client=gtx&sl={0}&tl={1}&dt=t&q={2}",
-             "ja", "vi", Uri.EscapeUriString(input));
+             langInGG, langOut, Uri.EscapeUriString(input));
             HttpClient httpClient = new HttpClient();
             string result = httpClient.GetStringAsync(url).Result;
             var jsonData = new JavaScriptSerializer().Deserialize<List<dynamic>>(result);
@@ -81,7 +86,7 @@ namespace PRD_Game_translate_tool
         private string OCR(Bitmap b)
         {
             string res = "";
-            using (var engine = new TesseractEngine(@"tessdata", "jpn", EngineMode.Default))
+            using (var engine = new TesseractEngine(@"tessdata", langInOCR, EngineMode.Default))
             {
                 using (var page = engine.Process(b, PageSegMode.AutoOnly))
                     res = page.GetText();
@@ -110,6 +115,10 @@ namespace PRD_Game_translate_tool
                     txtCapture.BeginInvoke(new Action(() => {
 
                         txtCapture.Text = result;
+                        if (shrink)
+                        {
+                            txtShrink.Text = txtTranslate.Text;
+                        }
 
                     }));
                     picloading.BeginInvoke(new Action(() =>
@@ -121,7 +130,7 @@ namespace PRD_Game_translate_tool
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Đang ở chế độ auto, vui lòng tắt!");
+                System.Windows.Forms.MessageBox.Show("Đang ở chế độ auto, vui lòng tắt!", "Chú ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             /*this.WindowState = FormWindowState.Minimized;
             Thread.Sleep(500);
@@ -170,6 +179,83 @@ namespace PRD_Game_translate_tool
         Timer tmr = new Timer();
         static int autoRectLocationX, autoRectLocationY, autoRectSizeX, autoRectSizeY;
 
+        private void btnScale_Click(object sender, EventArgs e)
+        {
+            if (shrink)
+            {
+                shrink = false;
+                lbl4.Visible = false;
+                txtShrink.Visible = false;
+                btnScale.Visible = false;
+                lbl1.Visible = true;
+                lbl2.Visible = true;
+                lbl3.Visible = true;
+                pbxCapture.Visible = true;
+                pbxAuto.Visible = true;
+                //picloading.Visible = true;
+                txtCapture.Visible = true;
+                txtTranslate.Visible = true;
+                btnAuto.Visible = true;
+                btnStopAuto.Visible = true;
+                btnCapture.Visible = true;
+                btnTranslate.Visible = true;
+                Size = new System.Drawing.Size(1000, 480);
+            }
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!auto)
+            {
+                pbxCapture.Image = null;
+                txtCapture.Refresh();
+                txtTranslate.Refresh();
+                txtShrink.Refresh();
+                txtCapture.Text = null;
+                txtTranslate.Text = null;
+                txtShrink.Text = null;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Đang ở chế độ auto, vui lòng tắt!", "Chú ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void lưuÝToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCaution frmc = new frmCaution();
+            frmc.ShowDialog();
+        }
+
+        private void rútGọnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!shrink)
+            {
+                shrink = true;
+                lbl4.Visible = true;
+                txtShrink.Visible = true;
+                btnScale.Visible = true;
+                lbl1.Visible = false;
+                lbl2.Visible = false;
+                lbl3.Visible = false;
+                pbxCapture.Visible = false;
+                pbxAuto.Visible = false;
+                picloading.Visible = false;
+                txtCapture.Visible = false;
+                txtTranslate.Visible = false;
+                btnAuto.Visible = false;
+                btnStopAuto.Visible = false;
+                btnCapture.Visible = false;
+                btnTranslate.Visible = false;
+                Size = new System.Drawing.Size(410, 270);
+            }
+        }
+
+        private void hỗTrợToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.facebook.com/hoan.nguyenduy.7967");
+        }
+
         public static void TakeAutoTemplate(BitmapSource bitmapSource)
         {
             int mouseX = MousePosition.X;
@@ -186,9 +272,15 @@ namespace PRD_Game_translate_tool
             if (!auto)
             {
                 auto = true;
+                btnAuto.Enabled = false;
                 this.WindowState = FormWindowState.Minimized;
+                Thread.Sleep(500);
                 TakeAutoTemplate(Screenshot.CaptureRegion());
+                autoCount = 0;
+                lblAuto.Text = "Auto: On";
+                Thread.Sleep(500);
                 this.WindowState = FormWindowState.Normal;
+                btnStopAuto.Enabled = true;
             }
 
             if (auto)
@@ -203,6 +295,11 @@ namespace PRD_Game_translate_tool
             }
         }
 
+        private void Tmr_Reset(object sender, EventArgs e)
+        {
+            return;
+        }
+
         private void Tmr_Tick(object sender, EventArgs e)
         {
             //this.WindowState = FormWindowState.Minimized;
@@ -214,6 +311,15 @@ namespace PRD_Game_translate_tool
 
             try
             {
+                autoCount += 1;
+                if (autoCount % 2 != 0)
+                {
+                    pbxAuto.Visible = false;
+                }
+                else
+                {
+                    pbxAuto.Visible = true;
+                }
                 System.Windows.Rect myRect = new System.Windows.Rect();
                 myRect.Location = new System.Windows.Point(autoRectLocationX, autoRectLocationY);
                 myRect.Size = new System.Windows.Size(autoRectSizeX, autoRectSizeY);
@@ -234,7 +340,12 @@ namespace PRD_Game_translate_tool
                         {
                             txtCapture.Text = result;
                             txtTranslate.Text = TranslateText(txtCapture.Text);
+                            if (shrink)
+                            {
+                                txtShrink.Text = txtTranslate.Text;
+                            }
                         }
+
                     }));
                     picloading.BeginInvoke(new Action(() =>
                     {
@@ -253,14 +364,128 @@ namespace PRD_Game_translate_tool
         {
             tmr.Stop();
             auto = false;
+            btnStopAuto.Enabled = false;
+            lblAuto.Text = "Auto: Off";
+            pbxAuto.Visible = true;
             txtCapture.Refresh();
             txtTranslate.Refresh();
+            txtShrink.Refresh();
+            btnAuto.Enabled = true;
         }
 
         private void frmTranslate_Load(object sender, EventArgs e)
         {
-            langInput = "auto";
-            langOutput = "auto";
+            duongdanDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            settingPath1 = duongdanDoc + @"\PRDTranslateSetting\SettingValue1.txt";
+            settingPath2 = duongdanDoc + @"\PRDTranslateSetting\SettingValue2.txt";
+
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/PRDTranslateSetting"));
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/PRDTranslateSetting");
+            }
+
+            if (!File.Exists(settingPath1))
+            {
+                using (FileStream fs = File.Create(settingPath1))
+                {
+
+                }
+            }
+            if (!File.Exists(settingPath2))
+            {
+                using (FileStream fs = File.Create(settingPath2))
+                {
+
+                }
+            }
+
+            string readFile1 = File.ReadAllText(settingPath1);
+            string readFile2 = File.ReadAllText(settingPath2);
+
+            if (string.IsNullOrEmpty(readFile1))
+            {
+                File.WriteAllText(settingPath1, "2");
+                langInputSetting = "2";
+            }
+            else
+            {
+                langInputSetting = readFile1;
+            }
+
+            if (string.IsNullOrEmpty(readFile2))
+            {
+                File.WriteAllText(settingPath2, "0");
+                langOutputSetting = "0";
+            }
+            else
+            {
+                langOutputSetting = readFile2;
+            }
+
+            if (langInputSetting == "0")
+            {
+                langInputOCR = 0;
+                langInputGG = 0;
+                ChangeInputValue();
+            }
+            else if (langInputSetting == "1")
+            {
+                langInputOCR = 9;
+                langInputGG = 1;
+                ChangeInputValue();
+            }
+            else if (langInputSetting == "2")
+            {
+                langInputOCR = 17;
+                langInputGG = 2;
+                ChangeInputValue();
+            }
+
+            if (langOutputSetting == "0")
+            {
+                langOutput = 0;
+                ChangeOutputValue();
+            }
+            else if (langOutputSetting == "1")
+            {
+                langOutput = 1;
+                ChangeOutputValue();
+            }
+            else if (langOutputSetting == "2")
+            {
+                langOutput = 2;
+                ChangeOutputValue();
+            }
+        }
+
+        public void ChangeInputValue()
+        {
+            for (int i = 0; i < langArrMini.Length; i++)
+            {
+                if (i == langInputOCR)
+                {
+                    langInOCR = langArrMini[i];
+                }
+            }
+
+            for (int i = 0; i < langTranslateArr.Length; i++)
+            {
+                if (i == langInputGG)
+                {
+                    langInGG = langTranslateArr[i];
+                }
+            }
+        }
+
+        public void ChangeOutputValue()
+        {
+            for (int i = 0; i < langTranslateArr.Length; i++)
+            {
+                if (i == langOutput)
+                {
+                    langOut = langTranslateArr[i];
+                }
+            }
         }
 
         private void btnTranslate_Click(object sender, EventArgs e)
@@ -269,7 +494,7 @@ namespace PRD_Game_translate_tool
                 txtTranslate.Text = TranslateText(txtCapture.Text);
             else
             {
-                System.Windows.Forms.MessageBox.Show("Đang ở chế độ auto, vui lòng tắt!");
+                System.Windows.Forms.MessageBox.Show("Đang ở chế độ auto, vui lòng tắt!", "Chú ý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

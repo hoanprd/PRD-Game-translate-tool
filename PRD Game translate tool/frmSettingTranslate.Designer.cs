@@ -29,96 +29,86 @@ namespace PRD_Game_translate_tool
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettingTranslate));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbxLangOCR = new System.Windows.Forms.ComboBox();
-            this.cbxLangInput = new System.Windows.Forms.ComboBox();
-            this.cbxLangOutput = new System.Windows.Forms.ComboBox();
+            this.cbbLangInput = new System.Windows.Forms.ComboBox();
+            this.cbbLangOutput = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 50);
+            this.label1.Location = new System.Drawing.Point(11, 103);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(231, 25);
             this.label1.TabIndex = 9;
             this.label1.Text = "Ngôn ngữ nhận diện:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 157);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(211, 25);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Ngôn ngữ đầu vào:";
-            // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 277);
+            this.label3.Location = new System.Drawing.Point(11, 227);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 25);
+            this.label3.Size = new System.Drawing.Size(171, 25);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Ngôn ngữ đầu ra:";
+            this.label3.Text = "Ngôn ngữ dịch:";
             // 
-            // cbxLangOCR
+            // cbbLangInput
             // 
-            this.cbxLangOCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxLangOCR.FormattingEnabled = true;
-            this.cbxLangOCR.Items.AddRange(new object[] {
+            this.cbbLangInput.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cbbLangInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbLangInput.FormattingEnabled = true;
+            this.cbbLangInput.Items.AddRange(new object[] {
             "Tiếng Việt",
             "Tiếng Anh",
             "Tiếng Nhật"});
-            this.cbxLangOCR.Location = new System.Drawing.Point(349, 50);
-            this.cbxLangOCR.Name = "cbxLangOCR";
-            this.cbxLangOCR.Size = new System.Drawing.Size(523, 24);
-            this.cbxLangOCR.TabIndex = 12;
+            this.cbbLangInput.Location = new System.Drawing.Point(264, 103);
+            this.cbbLangInput.Margin = new System.Windows.Forms.Padding(2);
+            this.cbbLangInput.Name = "cbbLangInput";
+            this.cbbLangInput.Size = new System.Drawing.Size(393, 21);
+            this.cbbLangInput.TabIndex = 12;
+            this.cbbLangInput.SelectedValueChanged += new System.EventHandler(this.cbxLangInput_SelectedValueChanged);
             // 
-            // cbxLangInput
+            // cbbLangOutput
             // 
-            this.cbxLangInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxLangInput.FormattingEnabled = true;
-            this.cbxLangInput.Items.AddRange(new object[] {
+            this.cbbLangOutput.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cbbLangOutput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbLangOutput.FormattingEnabled = true;
+            this.cbbLangOutput.Items.AddRange(new object[] {
             "Tiếng Việt",
             "Tiếng Anh",
             "Tiếng Nhật"});
-            this.cbxLangInput.Location = new System.Drawing.Point(349, 157);
-            this.cbxLangInput.Name = "cbxLangInput";
-            this.cbxLangInput.Size = new System.Drawing.Size(523, 24);
-            this.cbxLangInput.TabIndex = 13;
-            // 
-            // cbxLangOutput
-            // 
-            this.cbxLangOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxLangOutput.FormattingEnabled = true;
-            this.cbxLangOutput.Items.AddRange(new object[] {
-            "Tiếng Việt",
-            "Tiếng Anh",
-            "Tiếng Nhật"});
-            this.cbxLangOutput.Location = new System.Drawing.Point(349, 277);
-            this.cbxLangOutput.Name = "cbxLangOutput";
-            this.cbxLangOutput.Size = new System.Drawing.Size(523, 24);
-            this.cbxLangOutput.TabIndex = 14;
+            this.cbbLangOutput.Location = new System.Drawing.Point(264, 227);
+            this.cbbLangOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.cbbLangOutput.Name = "cbbLangOutput";
+            this.cbbLangOutput.Size = new System.Drawing.Size(393, 21);
+            this.cbbLangOutput.TabIndex = 14;
+            this.cbbLangOutput.SelectedValueChanged += new System.EventHandler(this.cbxLangOutput_SelectedValueChanged);
             // 
             // frmSettingTranslate
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 461);
-            this.Controls.Add(this.cbxLangOutput);
-            this.Controls.Add(this.cbxLangInput);
-            this.Controls.Add(this.cbxLangOCR);
+            this.ClientSize = new System.Drawing.Size(663, 375);
+            this.Controls.Add(this.cbbLangOutput);
+            this.Controls.Add(this.cbbLangInput);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "frmSettingTranslate";
-            this.Text = "frmSettingTranslate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cài đặt ngôn ngữ";
+            this.Load += new System.EventHandler(this.frmSettingTranslate_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,10 +117,8 @@ namespace PRD_Game_translate_tool
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbxLangOCR;
-        private System.Windows.Forms.ComboBox cbxLangInput;
-        private System.Windows.Forms.ComboBox cbxLangOutput;
+        private System.Windows.Forms.ComboBox cbbLangInput;
+        private System.Windows.Forms.ComboBox cbbLangOutput;
     }
 }

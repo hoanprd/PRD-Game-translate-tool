@@ -16,7 +16,6 @@ namespace PRD_Game_translate_tool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new frmMain());
             Application.Run(new frmTranslate());
         }
     }
