@@ -26,8 +26,8 @@ namespace PRD_Game_translate_tool
     public partial class frmTranslate : Form
     {
         public static string[] langArr = { "Vietnamese", "Arabic", "Bulgarian", "Chinese(Simplified)", "Chinese(Traditional)", "Croatian", "Czech", "Danish", "Dutch", "English", "Finnish", "French", "German", "Greek", "Hungarian", "Korean", "Italian", "Japanese", "Polish", "Portuguese", "Russian", "Slovenian", "Spanish", "Swedish", "Turkish" };
-        public static string[] langArrMini = { "vie", "ara", "bul", "chs", "cht", "hrv", "cze", "dan", "dut", "eng", "fin", "fre", "ger", "gre", "hun", "kor", "ita", "jpn", "pol", "por", "rus", "slv", "spa", "swe", "tur" };
-        public static string[] langTranslateArr = { "vi", "en", "ja" };
+        public static string[] langArrMini = { "vie", "ara", "bul", "chi_sim", "cht", "hrv", "cze", "dan", "dut", "eng", "fin", "fre", "ger", "gre", "hun", "kor", "ita", "jpn", "pol", "por", "rus", "slv", "spa", "swe", "tur" };
+        public static string[] langTranslateArr = { "vi", "en", "ja", "zh-tw" };
         public static string langInputSetting, langOutputSetting;
         public static int langInputOCR, langInputGG, langOutput;
         public static string langInOCR, langInGG, langOut;
@@ -262,7 +262,7 @@ namespace PRD_Game_translate_tool
             int mouseY = MousePosition.Y;
             autoRectLocationX = mouseX - bitmapSource.PixelWidth; ;
             autoRectLocationY = mouseY - bitmapSource.PixelHeight;
-            Console.WriteLine(autoRectLocationX + " " + autoRectLocationY);
+            //Console.WriteLine(autoRectLocationX + " " + autoRectLocationY);
             autoRectSizeX = bitmapSource.PixelWidth;
             autoRectSizeY = bitmapSource.PixelHeight;
         }
@@ -440,6 +440,12 @@ namespace PRD_Game_translate_tool
                 langInputGG = 2;
                 ChangeInputValue();
             }
+            else if (langInputSetting == "3")
+            {
+                langInputOCR = 3;
+                langInputGG = 3;
+                ChangeInputValue();
+            }
 
             if (langOutputSetting == "0")
             {
@@ -454,6 +460,11 @@ namespace PRD_Game_translate_tool
             else if (langOutputSetting == "2")
             {
                 langOutput = 2;
+                ChangeOutputValue();
+            }
+            else if (langOutputSetting == "3")
+            {
+                langOutput = 3;
                 ChangeOutputValue();
             }
         }

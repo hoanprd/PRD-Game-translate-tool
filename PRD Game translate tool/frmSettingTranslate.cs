@@ -44,6 +44,15 @@ namespace PRD_Game_translate_tool
 
                 ChangeInputValue();
             }
+            else if (cbbLangInput.Text == "Tiếng Trung")
+            {
+                frmTranslate.langInputSetting = "3";
+                frmTranslate.langInputOCR = 3;
+                frmTranslate.langInputGG = 3;
+                File.WriteAllText(settingPath1, "3");
+
+                ChangeInputValue();
+            }
         }
 
         private void cbxLangOutput_SelectedValueChanged(object sender, EventArgs e)
@@ -69,6 +78,14 @@ namespace PRD_Game_translate_tool
                 frmTranslate.langOutputSetting = "2";
                 frmTranslate.langOutput = 2;
                 File.WriteAllText(settingPath2, "2");
+
+                ChangeOutputValue();
+            }
+            else if (cbbLangOutput.Text == "Tiếng Trung")
+            {
+                frmTranslate.langOutputSetting = "3";
+                frmTranslate.langOutput = 3;
+                File.WriteAllText(settingPath2, "3");
 
                 ChangeOutputValue();
             }
@@ -128,6 +145,11 @@ namespace PRD_Game_translate_tool
                 cbbLangInput.SelectedIndex = 2;
                 cbbLangInput.SelectedValue = "Tiếng Nhật";
             }
+            else if (readFile1 == "3")
+            {
+                cbbLangInput.SelectedIndex = 3;
+                cbbLangInput.SelectedValue = "Tiếng Trung";
+            }
 
 
             if (readFile2 == "0")
@@ -144,6 +166,11 @@ namespace PRD_Game_translate_tool
             {
                 cbbLangOutput.SelectedIndex = 2;
                 cbbLangOutput.SelectedValue = "Tiếng Nhật";
+            }
+            else if (readFile2 == "3")
+            {
+                cbbLangOutput.SelectedIndex = 3;
+                cbbLangOutput.SelectedValue = "Tiếng Trung";
             }
         }
 
